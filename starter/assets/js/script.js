@@ -40,4 +40,30 @@ var ansAndQues = [
         answer: "i--"
      }
     
-]
+];
+
+var startButton = document.getElementById("start"); 
+var timerElement = document.querySelector("#time"); 
+var questionChoices = document.querySelectorAll(".choices") //unsure if to select the choices class  
+var startTime = 100 
+
+function setCounter () { 
+    timerElement.textContent = startTime;
+};  
+
+ function setTime() { 
+    var timerInterval = setInterval(function(){ 
+        startTime--;
+        setCounter(); //updates the start time every every decrement
+        if (startTime === 0) {  //needs to be inside function curly brackets
+            clearInterval(timerInterval);//should stop timer when it gets to zero
+        }
+    }, 1000);  
+ };
+
+
+startButton.addEventListener("click", function(){
+    setCounter();
+    setTime(); 
+
+})
