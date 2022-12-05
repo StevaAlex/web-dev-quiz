@@ -44,11 +44,22 @@ var ansAndQues = [
 
 var startButton = document.getElementById("start");
 var timerElement = document.querySelector("#time");
-var questionChoices = document.querySelectorAll(".choices") //unsure if to select the choices class  
+var questionChoices = document.querySelector("#choices") //
 var openText = document.querySelector(".start");
-var startTime = 100 
+var startTime = 100
+var questionsElement = document.querySelector("#questions"); //selects title 
+var questionTitle = document.querySelector("#question-title");
 
-//create 3 buttons under choices
+questionTitle.innerHTML += " ";//using innerHTML, it allows you to add text to an empty div/tag
+
+//create 3 buttons under choices 
+var button1 = document.createElement("button");
+var button2 = document.createElement("button");
+var button3 = document.createElement("button");
+//append buttons to the choices section
+questionChoices.appendChild(button1);
+questionChoices.appendChild(button2);
+questionChoices.appendChild(button3);
 
 
 
@@ -62,7 +73,8 @@ function setTime() {
         startTime--;
         setCounter(); //updates the start time every every decrement
         if (startTime === 0) {  //needs to be inside function curly brackets
-            clearInterval(timerInterval);//should stop timer when it gets to zero
+            clearInterval(timerInterval);//should stop timer when it gets to zero 
+            // openText;
         }
     }, 1000);
 };
@@ -71,9 +83,21 @@ function setTime() {
 startButton.addEventListener("click", function () {
     setCounter();
     setTime();
-    openText.textContent= " ";//clears start button and and start text
+    openText.textContent = " ";//clears start button and and start text
+    questionsElement.setAttribute("class", "show");
+    questionTitle.textContent = ansAndQues[0].question;///have first question pop up when start button clicked
+    button1.textContent = ansAndQues[0].choices[0] //consider for loop
+    button2.textContent = ansAndQues[0].choices[1]
+    button3.textContent = ansAndQues[0].choices[2]
 
-
-}); 
-
-///have first question pop up when start button clicked
+});
+console.log(questionTitle);
+//consider event bubbling stop here 
+//if button clicked === answer: value { 
+//     move to next question 
+//     score++
+// else { 
+//score--; ......maybe 
+//startTime--;
+//}
+// }
