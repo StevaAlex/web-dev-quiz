@@ -1,17 +1,17 @@
 var ansAndQues = [
     {
         question: "What language is used to form the main body of your code?",
-        choices: ["html", "CSS", "Javascript"],
-        answer: "html"
+        choices: ["HTML", "CSS", "Javascript"],
+        answer: "HTML"
     },
     {
         question: "What language is used to style your code only?",
-        choices: ["html", "CSS", "Javascript"],
+        choices: ["HTML", "CSS", "Javascript"],
         answer: "CSS"
     },
     {
         question: "What language is used to form the make your code dynamic and interactive?",
-        choices: ["html", "CSS", "Javascript"],
+        choices: ["HTML", "CSS", "Javascript"],
         answer: "Javascript"
     },
     {
