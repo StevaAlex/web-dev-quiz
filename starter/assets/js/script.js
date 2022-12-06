@@ -73,15 +73,16 @@ questionChoices.appendChild(button3);
 function setCounter() {
     timerElement.textContent = startTime;
 };
-
+var timerInterval;
 function setTime() {
-    var timerInterval = setInterval(function () {
+     timerInterval = setInterval(function () {
         startTime--;
         setCounter(); //updates the start time every every decrement
         if (startTime <= 0) {  //needs to be inside function curly brackets
             clearInterval(timerInterval);//should stop timer when it gets to zero 
             endScreen();
-        }
+        } 
+        
     }, 1000);
 };
 
@@ -106,15 +107,17 @@ function questionSelection() {
 }
 
 
-
+var scoreStore;
 function endScreen() {
     finalScoreEl.innerHTML = scoreTracker;
     endText.setAttribute("class", "show");
-    questionsElement.setAttribute("class", "show");
+    questionsElement.setAttribute("class", "show"); 
     questionTitle.textContent = " ";
     button1.textContent = " ";
     button2.textContent = " ";
     button3.textContent = " ";
+    scoreStore = localStorage.setItem("final-score", scoreTracker)
+    clearInterval(timerInterval);
 
 };
 
@@ -152,5 +155,7 @@ questionChoices.addEventListener("click", function nextQuestion(event) {
         endScreen();
     }
 
-})
+}) 
+
+
 
