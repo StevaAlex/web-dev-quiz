@@ -50,7 +50,10 @@ var startTime = 30;
 var questionsElement = document.querySelector("#questions"); //selects title 
 var questionTitle = document.querySelector("#question-title");
 var endText = document.querySelector("#end-screen");
-var finalScoreEl = document.querySelector("#final-score");
+var finalScoreEl = document.querySelector("#final-score"); 
+var submitBtn = document.querySelector("#submit"); 
+var initalInput = document.querySelector("#initials").value;
+var endScreenTitle = document.querySelector("h2");
 //create score tracker 
 var scoreTracker = 0;
 var i = 0;
@@ -107,7 +110,7 @@ function questionSelection() {
 }
 
 
-var scoreStore;
+
 function endScreen() {
     finalScoreEl.innerHTML = scoreTracker;
     endText.setAttribute("class", "show");
@@ -116,7 +119,6 @@ function endScreen() {
     button1.textContent = " ";
     button2.textContent = " ";
     button3.textContent = " ";
-    scoreStore = localStorage.setItem("final-score", scoreTracker)
     clearInterval(timerInterval);
 
 };
@@ -158,4 +160,22 @@ questionChoices.addEventListener("click", function nextQuestion(event) {
 }) 
 
 
-
+ 
+// var scoreStore;
+// var initials;
+// function submitScore(event) { 
+//     scoreStore = localStorage.setItem("final-score", scoreTracker) 
+//     initials = localStorage.setItem("user-initial",initalInput );
+//     // event.preventDefault();
+// } 
+submitBtn.addEventListener("click", function(event) { 
+    event.preventDefault(); 
+    var userData = { 
+        initial: initalInput.trim(),//stores data in a variable and removes white space 
+        finalScore: scoreTracker
+    }
+    // if (userData.initial === "") {
+    //    endScreenTitle.textContent =  displayMessage("error", "Name cannot be blank");
+    // } 
+    localStorage.setItem("user-data", userData);
+});
