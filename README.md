@@ -13,9 +13,9 @@ N/A
 
 ## Usage 
 click the link below to navigate to the website.
-https://stevaalex.github.io/Console-Finances/
+https://stevaalex.github.io/web-dev-quiz/
 
-![screenshot of website](./starter/consoleFinances.png)
+![screenshot of website](./assets/127.0.0.1_5500_index.html%20(1).png)
 
 
 ## Credits
