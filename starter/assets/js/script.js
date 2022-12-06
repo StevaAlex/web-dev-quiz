@@ -35,7 +35,7 @@ var ansAndQues = [
         answer: "The second item"
     },
     {
-        question: "In a for loop, how would I increment i by 1?",
+        question: "In a for loop, how would I decrement i by 1?",
         choices: ["i++", "i--", "i1"],
         answer: "i--"
     }
@@ -46,9 +46,14 @@ var startButton = document.getElementById("start");
 var timerElement = document.querySelector("#time");
 var questionChoices = document.querySelector("#choices") //
 var openText = document.querySelector(".start");
-var startTime = 100
+var startTime = 30;
 var questionsElement = document.querySelector("#questions"); //selects title 
 var questionTitle = document.querySelector("#question-title");
+var endText = document.querySelector("#end-screen");
+var finalScoreEl = document.querySelector("#final-score");
+//create score tracker 
+var scoreTracker = 0;
+var i = 0;
 
 questionTitle.innerHTML += " ";//using innerHTML, it allows you to add text to an empty div/tag
 
@@ -64,6 +69,7 @@ questionChoices.appendChild(button3);
 
 
 
+
 function setCounter() {
     timerElement.textContent = startTime;
 };
@@ -72,9 +78,9 @@ function setTime() {
     var timerInterval = setInterval(function () {
         startTime--;
         setCounter(); //updates the start time every every decrement
-        if (startTime === 0) {  //needs to be inside function curly brackets
+        if (startTime <= 0) {  //needs to be inside function curly brackets
             clearInterval(timerInterval);//should stop timer when it gets to zero 
-            // openText;
+            endScreen();
         }
     }, 1000);
 };
@@ -85,19 +91,66 @@ startButton.addEventListener("click", function () {
     setTime();
     openText.textContent = " ";//clears start button and and start text
     questionsElement.setAttribute("class", "show");
-    questionTitle.textContent = ansAndQues[0].question;///have first question pop up when start button clicked
-    button1.textContent = ansAndQues[0].choices[0] //consider for loop
-    button2.textContent = ansAndQues[0].choices[1]
-    button3.textContent = ansAndQues[0].choices[2]
+    questionSelection();
 
 });
-console.log(questionTitle);
-//consider event bubbling stop here 
-//if button clicked === answer: value { 
-//     move to next question 
-//     score++
-// else { 
-//score--; ......maybe 
-//startTime--;
-//}
-// }
+
+
+
+function questionSelection() {
+    questionTitle.textContent = ansAndQues[i].question
+    button1.textContent = ansAndQues[i].choices[0] //consider for loop
+    button2.textContent = ansAndQues[i].choices[1]
+    button3.textContent = ansAndQues[i].choices[2]
+    console.log("tracker so far: " + scoreTracker)
+}
+
+
+
+function endScreen() {
+    finalScoreEl.innerHTML = scoreTracker;
+    endText.setAttribute("class", "show");
+    questionsElement.setAttribute("class", "show");
+    questionTitle.textContent = " ";
+    button1.textContent = " ";
+    button2.textContent = " ";
+    button3.textContent = " ";
+
+};
+
+
+questionChoices.addEventListener("click", function nextQuestion(event) {
+    var answerChoice = event.target.textContent
+    var correctAnswer = ansAndQues[i].answer;
+    event.stopPropagation;
+    if (answerChoice === correctAnswer) {
+        console.log("Correct");
+        i++;
+        scoreTracker++;
+        questionTitle.textContent = " ";
+        button1.textContent = " ";
+        button2.textContent = " ";
+        button3.textContent = " ";
+        questionSelection();
+
+    }
+    else if (answerChoice !== correctAnswer) {
+        console.log("Incorrect");
+        i++;
+        scoreTracker--;
+        startTime -= 5;
+        questionTitle.textContent = " ";
+        button1.textContent = " ";
+        button2.textContent = " ";
+        button3.textContent = " ";
+        questionSelection();
+
+
+
+    }
+    if (i >= ansAndQues.length - 1) {
+        endScreen();
+    }
+
+})
+
