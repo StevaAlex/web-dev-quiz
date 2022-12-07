@@ -53,9 +53,11 @@ var endText = document.querySelector("#end-screen");
 var finalScoreEl = document.querySelector("#final-score"); 
 var submitBtn = document.querySelector("#submit"); 
 var initalInput = document.querySelector("#initials").value;
-var endScreenTitle = document.querySelector("h2");
+var endScreenTitle = document.querySelector("h2"); 
+var saveScore = [" "]; //empty array to store the scores
 //create score tracker 
-var scoreTracker = 0;
+var scoreTracker = 0; //start score at zerto
+
 var i = 0;
 
 questionTitle.innerHTML += " ";//using innerHTML, it allows you to add text to an empty div/tag
@@ -91,8 +93,8 @@ function setTime() {
 
 
 startButton.addEventListener("click", function () {
-    setCounter();
-    setTime();
+    setCounter();//run function to set time
+    setTime();//run interval timer
     openText.textContent = " ";//clears start button and and start text
     questionsElement.setAttribute("class", "show");
     questionSelection();
@@ -113,69 +115,59 @@ function questionSelection() {
 
 function endScreen() {
     finalScoreEl.innerHTML = scoreTracker;
-    endText.setAttribute("class", "show");
-    questionsElement.setAttribute("class", "show"); 
+    endText.setAttribute("class", "show");//change class to ''show' to show end screen
+    questionsElement.setAttribute("class", "show");
     questionTitle.textContent = " ";
     button1.textContent = " ";
-    button2.textContent = " ";
+    button2.textContent = " "; //set choices and questions to blank
     button3.textContent = " ";
-    clearInterval(timerInterval);
+    clearInterval(timerInterval); //stops timer
 
 };
 
 
 questionChoices.addEventListener("click", function nextQuestion(event) {
-    var answerChoice = event.target.textContent
-    var correctAnswer = ansAndQues[i].answer;
+    var answerChoice = event.target.textContent //selects the clicked on button
+    var correctAnswer = ansAndQues[i].answer;//select the correct answer from the object for each[i]
     event.stopPropagation;
+    //if button clicked matches the correct answer from the object increment i by 1 and increment score tracker by one
     if (answerChoice === correctAnswer) {
         console.log("Correct");
         i++;
         scoreTracker++;
-        questionTitle.textContent = " ";
+        questionTitle.textContent = " ";//then clear the questions and choices button so the other question can be placed there
         button1.textContent = " ";
         button2.textContent = " ";
         button3.textContent = " ";
-        questionSelection();
+        questionSelection();//run question again with new i
 
     }
     else if (answerChoice !== correctAnswer) {
         console.log("Incorrect");
-        i++;
+        i++;//if the button clicked does not match answer, then it is wrong, so decrement i by 1 and decrement remaining time by 5
         scoreTracker--;
         startTime -= 5;
         questionTitle.textContent = " ";
         button1.textContent = " ";
         button2.textContent = " ";
         button3.textContent = " ";
-        questionSelection();
+        questionSelection();//runs question again with new ii
 
 
 
     }
-    if (i >= ansAndQues.length - 1) {
+    if (i >= ansAndQues.length - 1) {//if i is greater than or equal to the length of the array, switch to end screen
         endScreen();
     }
 
 }) 
 
 
- 
-// var scoreStore;
-// var initials;
-// function submitScore(event) { 
-//     scoreStore = localStorage.setItem("final-score", scoreTracker) 
-//     initials = localStorage.setItem("user-initial",initalInput );
-//     // event.preventDefault();
-// } 
+
 submitBtn.addEventListener("click", function(event) { 
-    event.preventDefault(); 
-    var userData = { 
-        initial: initalInput.trim(),//stores data in a variable and removes white space 
-        finalScore: scoreTracker
-    }
-    // if (userData.initial === "") {
-    //    endScreenTitle.textContent =  displayMessage("error", "Name cannot be blank");
-    // } 
-    localStorage.setItem("user-data", userData);
-});
+    // event.preventDefault(); //necessary?
+    saveScore.push("initial: " + initalInput + " score" + scoreTracker);
+    window.localStorage.setItem("high-scores: ", JSON.stringify(saveScore)) //store inital and score together,
+}); //data is stored in an array
+
+console.log("dose save score work: " + saveScore)
