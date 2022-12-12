@@ -170,7 +170,7 @@ submitBtn.addEventListener("click", function(event) {
         initData: initalInput, 
         scoreData: scoreTracker
     }
-    window.localStorage.setItem("high-scores: ", JSON.stringify(saveData)) //store inital and score together,
+    window.localStorage.setItem("high-scores: ", JSON.stringify(savedData)) //store inital and score together,
 }); //data is stored in an array
 
 console.log("dose save score work: " + saveScore)
