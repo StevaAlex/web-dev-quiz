@@ -165,9 +165,12 @@ questionChoices.addEventListener("click", function nextQuestion(event) {
 
 
 submitBtn.addEventListener("click", function(event) { 
-    // event.preventDefault(); //necessary?
-    saveScore.push("initial: " + initalInput + " score" + scoreTracker);
-    window.localStorage.setItem("high-scores: ", JSON.stringify(saveScore)) //store inital and score together,
+    event.preventDefault(); 
+    var savedData = { 
+        initData: initalInput, 
+        scoreData: scoreTracker
+    }
+    window.localStorage.setItem("high-scores: ", JSON.stringify(saveData)) //store inital and score together,
 }); //data is stored in an array
 
 console.log("dose save score work: " + saveScore)
