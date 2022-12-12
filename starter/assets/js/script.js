@@ -50,10 +50,10 @@ var startTime = 30;
 var questionsElement = document.querySelector("#questions"); //selects title 
 var questionTitle = document.querySelector("#question-title");
 var endText = document.querySelector("#end-screen");
-var finalScoreEl = document.querySelector("#final-score"); 
-var submitBtn = document.querySelector("#submit"); 
-var initalInput = document.querySelector("#initials").value;
-var endScreenTitle = document.querySelector("h2"); 
+var finalScoreEl = document.querySelector("#final-score");
+var submitBtn = document.querySelector("#submit");
+var initalInput = document.querySelector("#initials");
+var endScreenTitle = document.querySelector("h2");
 var saveScore = [" "]; //empty array to store the scores
 //create score tracker 
 var scoreTracker = 0; //start score at zerto
@@ -80,14 +80,14 @@ function setCounter() {
 };
 var timerInterval;
 function setTime() {
-     timerInterval = setInterval(function () {
+    timerInterval = setInterval(function () {
         startTime--;
         setCounter(); //updates the start time every every decrement
         if (startTime <= 0) {  //needs to be inside function curly brackets
             clearInterval(timerInterval);//should stop timer when it gets to zero 
             endScreen();
-        } 
-        
+        }
+
     }, 1000);
 };
 
@@ -160,17 +160,19 @@ questionChoices.addEventListener("click", function nextQuestion(event) {
         endScreen();
     }
 
-}) 
+})
 
 
-
-submitBtn.addEventListener("click", function(event) { 
-    event.preventDefault(); 
-    var savedData = { 
-        initData: initalInput, 
+var savedData;
+submitBtn.addEventListener("click", function (event) {
+    event.preventDefault();
+    savedData = {
+        initData: initalInput.value,
         scoreData: scoreTracker
-    }
+    } 
+
     window.localStorage.setItem("high-scores: ", JSON.stringify(savedData)) //store inital and score together,
+    console.log("dose save score work: " + JSON.stringify(savedData));
 }); //data is stored in an array
 
-console.log("dose save score work: " + saveScore)
+
