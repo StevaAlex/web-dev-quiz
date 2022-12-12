@@ -1,6 +1,6 @@
 
-var userData = JSON.parse((localStorage.getItem("high-scores"))); 
-console.log(localStorage.getItem("high-scores"))
+var userData = JSON.parse((localStorage.getItem("highScores"))); 
+console.log(localStorage.getItem("highScores"))
 var highscoreEl = document.getElementById("#highscores"); 
 var li1 = document.createElement("li"); ///create li 
 //append li
